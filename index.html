@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.classList.add("js")</script>
+<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b1730">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Devkry – Portofolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="bg" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<nav aria-label="Navigasi">
+  <strong class="brand">Devkry</strong>
+  <a href="#tentang"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg><span>Tentang</span></a>
+  <a href="#proyek"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg><span>Proyek</span></a>
+  <a href="#kontak"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg><span>Kontak</span></a>
+</nav>
+
+<div class="wrap">
+  <section id="top">
+    <h1>Plugin, bot, dan web yang <span class="hl">dipakai langsung</span> oleh komunitas</h1>
+    <p class="lead">Saya Devkry, developer plugin Minecraft dan bot Discord.</p>
+    <div class="btns"><a class="btn fill" href="#proyek">Lihat proyek</a><a class="btn" href="#kontak">Hubungi saya</a></div>
+  </section>
+
+  <section id="tentang">
+    <h2>Tentang</h2>
+    <p class="sub">Siapa saya dan apa yang saya pakai.</p>
+    <p>Saya mengerjakan plugin Minecraft (Paper dengan Java dan Maven), bot Discord dan bot Minecraft dengan Node.js, serta web untuk kebutuhan komunitas server. Saya belajar sambil mengerjakan proyek nyata.</p>
+    <ul class="chips" aria-label="Skill">
+      <li>Minecraft Development</li><li>Web Development</li>
+    </ul>
+  </section>
+
+  <section id="proyek">
+    <h2>Proyek</h2>
+    <p class="sub">Pilih kategori untuk menyaring, klik proyek untuk melihat detailnya.</p>
+    <button type="button" class="mini add" id="addBtn" hidden>+ Tambah proyek</button>
+    <div class="adm" id="adm" hidden>
+      <form id="frm" autocomplete="off">
+        <div class="row">
+          <label>Nama proyek<input name="pname" required maxlength="80"></label>
+          <label>Kategori<select name="pcat"><option>Plugin</option><option>Bot</option><option>Web</option><option>Lainnya</option></select></label>
+        </div>
+        <label>Deskripsi<textarea name="pdesc" rows="3" maxlength="300"></textarea></label>
+        <div class="row">
+          <label>Teknologi (pisahkan dengan koma)<input name="ptech" maxlength="120"></label>
+          <label>Link (https://…)<input name="plink" type="url" maxlength="300"></label>
+        </div>
+        <div class="tools"><button class="btn fill" type="submit">Simpan proyek</button><button class="mini" type="button" id="cancel">Batal</button></div>
+        <p class="msg" id="msg" role="status"></p>
+      </form>
+    </div>
+    <div class="filters" id="filters" role="group" aria-label="Filter kategori"></div>
+    <ul class="list" id="list"></ul>
+  </section>
+
+  <section id="kontak" class="contact">
+    <h2>Kontak</h2>
+    <p class="sub">Cara paling cepat menghubungi saya.</p>
+    <div class="cl" id="contacts"></div>
+  </section>
+
+  <footer>© <span id="yr"></span> Devkry. Dibuat dengan HTML, CSS, dan JavaScript biasa. <button type="button" class="mini" id="openLogin">Login admin</button><button type="button" class="mini" id="logout" hidden>Keluar</button></footer>
+</div>
+
+<div class="login" id="login" role="dialog" aria-modal="true" aria-labelledby="lgTitle">
+  <form class="lgbox" id="lgForm" autocomplete="off">
+    <h2 id="lgTitle">Masuk</h2>
+    <p class="sub">Khusus admin untuk mengelola proyek.</p>
+    <label>Username<input name="user" autocomplete="username" autocapitalize="none" required></label>
+    <label>Password<input name="pass" type="password" autocomplete="current-password" required></label>
+    <button class="btn fill" type="submit">Masuk</button>
+    <button class="btn" type="button" id="guestBtn">Batal</button>
+    <p class="msg" id="lgMsg" role="alert"></p>
+  </form>
+</div>
+
+<div class="modal" id="modal" hidden>
+  <div class="mbox" role="dialog" aria-modal="true" aria-labelledby="mTitle" tabindex="-1">
+    <div class="mbar"><span class="cat" id="mCat"></span><button type="button" class="mclose" id="mClose">Tutup</button></div>
+    <h3 id="mTitle"></h3>
+    <p id="mDesc"></p>
+    <div class="tags" id="mTags"></div>
+    <div id="mLink"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
