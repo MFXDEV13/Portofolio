@@ -1,20 +1,38 @@
 const crypto = require("crypto");
 
-const URL_ = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+const BASE = process.env.SUPABASE_URL;
+const KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY;
 const ADMIN_USER = process.env.ADMIN_USER || "Admin";
 const ADMIN_PASS = process.env.ADMIN_PASS || "2006";
-const KEY = "projects";
+const ROW = "projects";
 const CATS = ["Plugin", "Bot", "Web", "Lainnya"];
 
-async function redis(path, body) {
-  const r = await fetch(`${URL_}/${path}`, {
-    method: body === undefined ? "GET" : "POST",
-    headers: { Authorization: `Bearer ${TOKEN}` },
-    body,
+function sbHeaders(extra) {
+  const h = { apikey: KEY, ...extra };
+  // Kunci lama (JWT) dikirim juga sebagai Bearer; kunci baru "sb_secret_..." cukup lewat apikey.
+  if (!String(KEY).startsWith("sb_")) h.Authorization = `Bearer ${KEY}`;
+  return h;
+}
+
+async function loadProjects() {
+  const r = await fetch(`${BASE}/rest/v1/site_data?key=eq.${ROW}&select=value`, {
+    headers: sbHeaders(),
   });
-  if (!r.ok) throw new Error("redis " + r.status);
-  return (await r.json()).result;
+  if (!r.ok) throw new Error("supabase " + r.status);
+  const rows = await r.json();
+  return rows.length && Array.isArray(rows[0].value) ? rows[0].value : [];
+}
+
+async function saveProjects(list) {
+  const r = await fetch(`${BASE}/rest/v1/site_data?on_conflict=key`, {
+    method: "POST",
+    headers: sbHeaders({
+      "Content-Type": "application/json",
+      Prefer: "resolution=merge-duplicates,return=minimal",
+    }),
+    body: JSON.stringify({ key: ROW, value: list, updated_at: new Date().toISOString() }),
+  });
+  if (!r.ok) throw new Error("supabase " + r.status);
 }
 
 function same(a, b) {
@@ -59,8 +77,7 @@ module.exports = async (req, res) => {
         await new Promise((r) => setTimeout(r, 800));
         return res.status(401).json({ error: "unauthorized" });
       }
-      const raw = URL_ ? await redis(`get/${KEY}`) : null;
-      return res.status(200).json(raw ? JSON.parse(raw) : []);
+      return res.status(200).json(BASE && KEY ? await loadProjects() : []);
     }
     if (req.method === "PUT") {
       if (!isAdmin(req)) {
@@ -69,12 +86,13 @@ module.exports = async (req, res) => {
       }
       const list = clean(req.body);
       if (!list) return res.status(400).json({ error: "invalid" });
-      await redis(`set/${KEY}`, JSON.stringify(list));
+      await saveProjects(list);
       return res.status(200).json(list);
     }
     res.setHeader("Allow", "GET, PUT");
     return res.status(405).json({ error: "method" });
   } catch (e) {
+    console.error(e);
     return res.status(500).json({ error: "server" });
   }
 };
