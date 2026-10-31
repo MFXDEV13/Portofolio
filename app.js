@@ -1,6 +1,6 @@
 /* ====== Kontak: ubah di sini ====== */
 var CONTACTS = [
-  {label:"Discord", value:"vynkrn"},
+  {label:"Discord", value:"@vynkrn"},
   {label:"GitHub", value:"github.com/MFXDEV13", href:"https://github.com/MFXDEV13"},
   {label:"Email", value:"miuchen13@gmail.com", href:"mailto:miuchen13@gmail.com"}
 ];
