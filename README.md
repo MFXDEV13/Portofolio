@@ -11,7 +11,7 @@ Website portofolio pribadi untuk menampilkan plugin Minecraft, bot Discord, dan 
 **Demo:** https://your-domain.vercel.app
 
 <!-- Ganti dengan screenshot asli: simpan gambar di docs/screenshot.png -->
-![Tampilan website](docs/screenshot.png)
+![Tampilan website](docs/Website.png)
 
 ## Fitur
 
