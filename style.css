@@ -17,6 +17,19 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offse
 
 nav{display:flex;gap:22px;flex-wrap:wrap;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line);background:var(--bg)}
 nav .brand{font-weight:700;flex:1}
+nav .brand {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+}
+
+nav .brand img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    display: block;
+}
 nav::after{content:"";flex:1}
 nav a{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 16px 10px;color:var(--dim);text-decoration:none;font-size:12px;font-weight:600;border-bottom:2px solid transparent}
 nav a svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
