@@ -225,3 +225,43 @@ if("IntersectionObserver" in window){
     }, 45);
   }, 400);
 })();
+
+// Clean URL Navigation
+document.addEventListener("click", function (event) {
+    const link = event.target.closest('a[href^="#"]');
+
+    if (!link) return;
+
+    const id = link.getAttribute("href").substring(1);
+    const target = document.getElementById(id);
+
+    if (!target) return;
+
+    event.preventDefault();
+
+    const newUrl = id === "top" ? "/" : `/${id}`;
+
+    history.pushState({ section: id }, "", newUrl);
+
+    target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+});
+
+// Handle browser back and forward
+function handleCleanUrl() {
+    const path = location.pathname.replace(/^\/|\/$/g, "");
+    const id = path || "top";
+    const target = document.getElementById(id);
+
+    if (target) {
+        target.scrollIntoView({
+            behavior: "auto",
+            block: "start"
+        });
+    }
+}
+
+window.addEventListener("popstate", handleCleanUrl);
+window.addEventListener("DOMContentLoaded", handleCleanUrl);
