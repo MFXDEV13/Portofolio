@@ -8,7 +8,7 @@
 
 Website portofolio pribadi untuk menampilkan plugin Minecraft, bot Discord, dan proyek web. Dibangun dengan HTML, CSS, dan JavaScript murni (tanpa framework), dilengkapi panel admin dan API serverless untuk mengelola daftar proyek langsung dari browser.
 
-**Demo:** https://your-domain.vercel.app
+**Demo:** https://devkry-portofolio.vercel.app/
 
 <!-- Ganti dengan screenshot asli: simpan gambar di docs/screenshot.png -->
 ![Tampilan website](docs/Website.png)
