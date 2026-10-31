@@ -86,7 +86,7 @@ Atur variabel berikut di **Vercel > Project > Settings > Environment Variables**
 | `KV_REST_API_URL` atau `UPSTASH_REDIS_REST_URL` | URL REST Upstash Redis | Ya |
 | `KV_REST_API_TOKEN` atau `UPSTASH_REDIS_REST_TOKEN` | Token REST Upstash Redis | Ya |
 | `ADMIN_USER` | Username admin (bawaan: `Admin`) | Disarankan |
-| `ADMIN_PASS` | Password admin (bawaan: `2006`) | Disarankan |
+| `ADMIN_PASS` | Password admin (bawaan: `admin`) | Disarankan |
 
 Variabel Upstash terisi otomatis saat database dihubungkan ke proyek. **Ganti `ADMIN_USER` dan `ADMIN_PASS` dengan nilai yang kuat sebelum dipublikasikan.**
 
